@@ -1,8 +1,9 @@
-📊 Model Performance Comparison
+###📊 Model Performance Comparison
 
 This repository documents the development and comparison of four distinct modeling approaches for Binary Sentiment Classification (Positive/Negative) on a large corpus of IMDb movie reviews. We benchmark Traditional Machine Learning (ML) models against Modern Deep Learning (DL) architectures to determine the optimal balance of performance, complexity, and computational cost.
 
 Key Objectives
+
 Implement robust text preprocessing and feature engineering techniques.
 
 Establish a strong ML baseline using classic count and frequency-based vectorization (BoW, TF-IDF).
@@ -20,6 +21,7 @@ The project uses a clean, pre-processed version of the IMDb movie review dataset
 <img width="519" height="111" alt="image" src="https://github.com/user-attachments/assets/e85fb595-31a1-4d55-8212-8f5d9390440a" />
 
 Standard Preprocessing
+
 All models were trained on text data that underwent the following steps:
 
 HTML Tag Removal (e.g., <br />).
@@ -54,9 +56,11 @@ This model explores recurrent networks for sentiment classification, using Word2
 This CNN uses parallel 1D convolutional layers with different kernel sizes (3, 4, 5) to act as variable-length n-gram detectors. It leverages frozen GloVe embeddings (100d) to utilize external semantic knowledge.
 
 4. SOTA Deep Learning: Fine-tuned BERT
+   
 The project's highest-performing model, based on the bert-base-uncased transformer. Fine-tuning allows the model to adapt its deep, pre-trained contextual knowledge directly to the sentiment task.
 
 <img width="828" height="111" alt="image" src="https://github.com/user-attachments/assets/f7d2a78e-aaac-41e8-8418-d850a9b7d7e6" />
 
 💻 Running the Project
+
 Please see the individual code files in the repository for specific installation and execution instructions for each model environment (PyTorch for BERT/LSTM, TensorFlow for CNN, and Scikit-learn for ML Baselines).
