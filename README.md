@@ -1,0 +1,2 @@
+📊 Model Performance Comparison
+This repository documents the development and comparison of four distinct modeling approaches for Binary Sentiment Classification (Positive/Negative) on a large corpus of IMDb movie reviews. We benchmark Traditional Machine Learning (ML) models against Modern Deep Learning (DL) architectures to determine the optimal balance of performance, complexity, and computational cost.
