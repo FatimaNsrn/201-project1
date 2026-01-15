@@ -1,66 +1,99 @@
-# 📊 Model Performance Comparison
+# Sentiment Analysis on Movie Reviews
 
-This repository documents the development and comparison of four distinct modeling approaches for Binary Sentiment Classification (Positive/Negative) on a large corpus of IMDb movie reviews. We benchmark Traditional Machine Learning (ML) models against Modern Deep Learning (DL) architectures to determine the optimal balance of performance, complexity, and computational cost.
+This project focuses on **binary sentiment analysis** for movie reviews, classifying each review as **positive** or **negative**.  
+It was developed as part of an **NLP course** to compare classical machine learning models with deep learning and Transformer-based approaches.
 
-## Key Objectives
+---
 
-Implement robust text preprocessing and feature engineering techniques.
+## Problem Definition
 
-Establish a strong ML baseline using classic count and frequency-based vectorization (BoW, TF-IDF).
+Sentiment Analysis aims to identify the emotional polarity of a text.
 
-Develop a custom CNN model utilizing static GloVe embeddings.
+Example:
+That was terrible" → Negative
 
-Fine-tune the state-of-the-art BERT model for maximum accuracy.
+---
 
-Provide a clear, quantitative comparison of all models.
+## Dataset
 
-## 💾 Dataset and Preprocessing
+| Attribute | Description |
+|---------|------------|
+| Dataset Name | imdb-movie-reviews |
+| Source | Hugging Face |
+| Total Samples | 50,000 reviews |
+| Training Set | 40,000 |
+| Test Set | 10,000 |
+| Labels | Positive / Negative |
+| Distribution | Balanced |
 
-The project uses a clean, pre-processed version of the IMDb movie review dataset, split into training (40,000 reviews) and testing (10,000 reviews) sets.
+---
 
-<img width="519" height="111" alt="image" src="https://github.com/user-attachments/assets/e85fb595-31a1-4d55-8212-8f5d9390440a" />
+## Preprocessing
 
-## Standard Preprocessing
+The following preprocessing steps were applied before training the models:
 
-All models were trained on text data that underwent the following steps:
+1. Removal of HTML tags  
+2. Removal of punctuation  
+3. Lowercasing all text  
+4. Text vectorization (TF-IDF / Bag of Words / Tokenization depending on model)
 
-HTML Tag Removal (e.g., <br />).
+---
 
-Lowercasing.
+## Models and Methodology
 
-Punctuation and Special Character Removal.
+### Classical Machine Learning Models
 
-Whitespace Standardization.
+| Model | Methodology |
+|-----|------------|
+| Naive Bayes (TF-IDF) | Multinomial Naive Bayes trained on TF-IDF vectors extracted from cleaned text. |
+| Naive Bayes + Stylistic Features | TF-IDF features combined with stylistic cues such as punctuation counts, capitalization, and ellipses. |
+| Logistic Regression | Logistic Regression trained using Bag-of-Words (CountVectorizer) representation. |
+
+---
+
+### Deep Learning Models
+
+| Model | Methodology |
+|-----|------------|
+| CNN + GloVe | CNN with parallel convolution filters (3,4,5), max-pooling, and pretrained 100-dim GloVe embeddings. |
+| BiLSTM + Word2Vec | Bidirectional LSTM using Word2Vec embeddings trained on the dataset, with dropout and dense layers. |
+
+---
+
+### Transformer-Based Model
+
+| Model | Methodology |
+|-----|------------|
+| BERT (bert-base-uncased) | Fine-tuned pretrained BERT model using AdamW optimizer for sentiment classification. |
+
+---
+
+## Results
+
+| Model | Test Accuracy | Key Observations |
+|-----|--------------|----------------|
+| Naive Bayes (TF-IDF) | 0.85 | Strong baseline; fast and stable |
+| Logistic Regression | 0.89 | High accuracy but sensitive to feature sparsity |
+| CNN + GloVe | 0.82 | Effective feature extraction with embeddings |
+| BiLSTM + Word2Vec | 0.88 | Captures sequential dependencies well |
+| BERT | 0.89 | Best overall performance with contextual understanding |
 
 
-## 🥇 Final Test Results Summary
+---
 
-The performance of all four primary models is summarized below, based on their final test set evaluation.
+## Analysis
 
-<img width="731" height="364" alt="image" src="https://github.com/user-attachments/assets/6be59cd6-0870-493e-8d72-897564ccf0a3" />
+- **Naive Bayes** showed strong baseline performance with good generalization.
+- **Stylistic features** did not significantly improve classification accuracy.
+- **Logistic Regression** overfitted due to high-dimensional sparse features.
+- **CNN + GloVe** demonstrated stable learning and effective feature extraction.
+- **BiLSTM** captured sequential dependencies but showed mild overfitting.
+- **BERT** achieved the best overall performance, leveraging pretrained contextual representations.
 
-### 1. Traditional ML Baseline: Logistic Regression
-   
-This model serves as a powerful, interpretable baseline. It relies on explicit feature engineering using Bag-of-Words (BoW) with Count Vectors for unigrams and bigrams
+---
 
-<img width="854" height="487" alt="image" src="https://github.com/user-attachments/assets/e126f025-7c3d-40a1-bfc5-d6ea839e8a8d" />
+## Conclusion
 
-### 2. Sequential Deep Learning: Bi-directional LSTM
-   
-This model explores recurrent networks for sentiment classification, using Word2Vec embeddings trained specifically on the training corpus. The use of a Bi-directional LSTM allows the model to process contextual information both forward and backward through the sentence, improving sequence understanding.
+The experiments show a clear progression from classical models to deep learning and Transformer-based approaches.  
+While simpler models generalize well, pretrained models such as **BERT** provide the strongest performance for sentiment analysis tasks.
 
-<img width="854" height="207" alt="image" src="https://github.com/user-attachments/assets/181f35f2-9765-4233-add9-f343469cbd8e" />
-
-### 3. Shallow Deep Learning: Multi-Filter 1D CNN
-
-This CNN uses parallel 1D convolutional layers with different kernel sizes (3, 4, 5) to act as variable-length n-gram detectors. It leverages frozen GloVe embeddings (100d) to utilize external semantic knowledge.
-
-### 4. SOTA Deep Learning: Fine-tuned BERT
-   
-The project's highest-performing model, based on the bert-base-uncased transformer. Fine-tuning allows the model to adapt its deep, pre-trained contextual knowledge directly to the sentiment task.
-
-<img width="828" height="111" alt="image" src="https://github.com/user-attachments/assets/f7d2a78e-aaac-41e8-8418-d850a9b7d7e6" />
-
-💻 Running the Project
-
-Please see the individual code files in the repository for specific installation and execution instructions for each model environment (PyTorch for BERT/LSTM, TensorFlow for CNN, and Scikit-learn for ML Baselines).
